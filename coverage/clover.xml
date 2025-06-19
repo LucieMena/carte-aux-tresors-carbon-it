@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750346503868" clover="3.2.0">
-  <project timestamp="1750346503868" name="All files">
-    <metrics statements="208" coveredstatements="208" conditionals="69" coveredconditionals="69" methods="39" coveredmethods="39" elements="316" coveredelements="316" complexity="0" loc="208" ncloc="208" packages="3" files="12" classes="12"/>
+<coverage generated="1750349207853" clover="3.2.0">
+  <project timestamp="1750349207853" name="All files">
+    <metrics statements="213" coveredstatements="213" conditionals="71" coveredconditionals="71" methods="41" coveredmethods="41" elements="325" coveredelements="325" complexity="0" loc="213" ncloc="213" packages="3" files="12" classes="12"/>
     <package name="constants">
       <metrics statements="19" coveredstatements="19" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="CellType.enum.ts" path="C:\Users\Lucie\Documents\carbon-it\chasse-aux-tresors\src\constants\CellType.enum.ts">
@@ -95,7 +95,7 @@
         <line num="112" count="3" type="stmt"/>
         <line num="115" count="3" type="stmt"/>
         <line num="118" count="10" type="stmt"/>
-        <line num="149" count="8" type="stmt"/>
+        <line num="122" count="8" type="stmt"/>
       </file>
       <file name="Cell.ts" path="C:\Users\Lucie\Documents\carbon-it\chasse-aux-tresors\src\models\Cell.ts">
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
@@ -150,7 +150,7 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="91" coveredstatements="91" conditionals="31" coveredconditionals="31" methods="21" coveredmethods="21"/>
+      <metrics statements="96" coveredstatements="96" conditionals="33" coveredconditionals="33" methods="23" coveredmethods="23"/>
       <file name="adventurerMovementSimulatorUtils.ts" path="C:\Users\Lucie\Documents\carbon-it\chasse-aux-tresors\src\utils\adventurerMovementSimulatorUtils.ts">
         <metrics statements="31" coveredstatements="31" conditionals="10" coveredconditionals="10" methods="3" coveredmethods="3"/>
         <line num="4" count="2" type="stmt"/>
@@ -186,37 +186,42 @@
         <line num="66" count="1" type="stmt"/>
       </file>
       <file name="mapInitUtils.ts" path="C:\Users\Lucie\Documents\carbon-it\chasse-aux-tresors\src\utils\mapInitUtils.ts">
-        <metrics statements="30" coveredstatements="30" conditionals="7" coveredconditionals="7" methods="6" coveredmethods="6"/>
+        <metrics statements="35" coveredstatements="35" conditionals="9" coveredconditionals="9" methods="8" coveredmethods="8"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
-        <line num="8" count="39" type="stmt"/>
-        <line num="11" count="7" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="31" count="11" type="stmt"/>
-        <line num="32" count="41" type="stmt"/>
-        <line num="34" count="41" type="cond" truecount="5" falsecount="0"/>
-        <line num="36" count="7" type="stmt"/>
-        <line num="39" count="13" type="stmt"/>
-        <line num="44" count="13" type="stmt"/>
-        <line num="45" count="13" type="stmt"/>
+        <line num="7" count="8" type="stmt"/>
+        <line num="8" count="46" type="stmt"/>
+        <line num="9" count="46" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="17" count="39" type="stmt"/>
+        <line num="20" count="7" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="40" count="11" type="stmt"/>
+        <line num="41" count="41" type="stmt"/>
+        <line num="43" count="41" type="cond" truecount="5" falsecount="0"/>
+        <line num="45" count="7" type="stmt"/>
         <line num="48" count="13" type="stmt"/>
         <line num="53" count="13" type="stmt"/>
         <line num="54" count="13" type="stmt"/>
-        <line num="57" count="7" type="stmt"/>
-        <line num="64" count="7" type="stmt"/>
+        <line num="57" count="13" type="stmt"/>
+        <line num="62" count="13" type="stmt"/>
+        <line num="63" count="13" type="stmt"/>
         <line num="66" count="7" type="stmt"/>
-        <line num="68" count="7" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
+        <line num="73" count="7" type="stmt"/>
+        <line num="75" count="7" type="stmt"/>
+        <line num="77" count="7" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
       </file>
       <file name="outputFormatterUtils.ts" path="C:\Users\Lucie\Documents\carbon-it\chasse-aux-tresors\src\utils\outputFormatterUtils.ts">
         <metrics statements="28" coveredstatements="28" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>

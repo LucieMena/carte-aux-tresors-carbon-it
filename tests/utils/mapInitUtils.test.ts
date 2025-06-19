@@ -7,9 +7,32 @@ import {
   getMapSize,
   initializeMap,
   parseInput,
+  preprocessInput,
 } from "../../src/utils/mapInitUtils";
 
 describe("mapInitUtils", () => {
+
+  describe("preprocessInput", ()=>{
+    it("should remove empty lines and lines starting with '#' chararcter", ()=>{
+      const input = [
+        "C - 3 - 4",
+        "",
+        "  ",
+        "# This is a comment",
+        "M - 1 - 0",
+        "   # Another comment after spaces",
+        "A - Lara - 1 - 1 - S - GADAADADAGGA",
+      ];
+
+      const expectedOutput = [
+        "C - 3 - 4",
+        "M - 1 - 0",
+        "A - Lara - 1 - 1 - S - GADAADADAGGA",
+      ];
+
+      expect(preprocessInput(input)).toEqual(expectedOutput);
+    })
+  });
 
   describe("parseInput", () => {
     it("should parse input lines into character arrays without spaces", () => {

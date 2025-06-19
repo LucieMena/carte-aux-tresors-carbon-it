@@ -3,8 +3,17 @@ import { MapConfigConstants } from "../constants/MapConfig.constants";
 import { Adventurer } from "../models/Adventurer";
 import { Position } from "../models/Position";
 
+export function preprocessInput(lines: string[]): string[] {
+  return lines.filter((line) => {
+    const trimmed = line.trim();
+    return trimmed !== "" && !trimmed.startsWith("#");
+  });
+}
+
 export function parseInput(lines: string[]): string[][] {
-  const characters = lines.map((line: string) => {
+  const filteredLines = preprocessInput(lines);
+
+  const characters = filteredLines.map((line: string) => {
     return line.replace(/\s/g, "").split("-");
   });
 
