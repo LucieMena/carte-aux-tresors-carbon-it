@@ -1,6 +1,6 @@
-const A =  'Forward';
-const G = 'Left';
-const D = 'Right';
+const A =  'A';
+const G = 'G';
+const D = 'D';
 
 export const SequenceConstants = {
   A,

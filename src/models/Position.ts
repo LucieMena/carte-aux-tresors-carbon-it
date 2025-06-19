@@ -1,9 +1,9 @@
 export class Position {
-  yPosition: number;
   xPosition: number;
+  yPosition: number;
 
-  constructor(yPosition: number, xPosition: number) {
-    this.yPosition = yPosition;
+  constructor(xPosition: number, yPosition: number) {
     this.xPosition = xPosition;
+    this.yPosition = yPosition;
   }
 }

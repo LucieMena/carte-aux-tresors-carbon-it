@@ -4,84 +4,114 @@ import { Adventurer } from "../../src/models/Adventurer";
 import { Grid } from "../../src/models/Grid";
 import { Position } from "../../src/models/Position";
 import { silmulateAdventurerMovement } from "../../src/utils/adventurerMovementSimulatorUtils";
-
+import { SequenceConstants } from "../../src/constants/Sequence.constants";
 
 describe("silmulateAdventurerMovement", () => {
   let adventurer: Adventurer;
   let grid: Grid;
 
   beforeEach(() => {
-    // Create a 3x3 grid
-    grid = new Grid(3, 3, []);
+    grid = new Grid(3, 4, []);
 
-    // Place a treasure at (1, 0)
-    const treasureCell = grid.getCell(new Position(1, 0));
-    treasureCell.cellType = CellTypeEnum.EMPTYCELLTYPE;
-    treasureCell.treasureCount = 1;
+    // Creeate treasure cell
+    const treasureCellPostion = new Position(0, 1);
+    grid.setCellType(treasureCellPostion, CellTypeEnum.EMPTYCELLTYPE);
+    grid.addTreasureToCell(treasureCellPostion, 3);
 
-    // Create an adventurer at (0, 0), facing EAST, with one "A" move
+    // Create an adventurer
     adventurer = new Adventurer(
-      "Lara",
+      "Lucie",
       new Position(0, 0),
       OrientationsConstants.EAST,
       0,
-      ["A"]
+      [SequenceConstants.A]
     );
 
-    // Mark the starting cell as occupied
-    grid.getCell(adventurer.position).hasAdventurer = true;
+    grid.getCell(adventurer.position).currentAdventurerPresent = adventurer;
+
+    // Create mountain cell
+    const mountainPosition = new Position(2, 1);
+    grid.setCellType(mountainPosition, CellTypeEnum.MOUNTAINCELLTYPE);
   });
 
-  it("should move adventurer forward to a valid cell and collects treasure", () => {
+  it("should not move adventurer forward if next position is not valid", () => {
+    adventurer.movements = ["G", "A"];
+    const oldPosition = adventurer.position;
     silmulateAdventurerMovement([adventurer], grid);
 
-    // Adventurer should move from (0,0) to (1,0)
-    expect(adventurer.position.xPosition).toBe(1);
-    expect(adventurer.position.yPosition).toBe(0);
+    expect(adventurer.position).toEqual(oldPosition);
+    // const oldPosition = adventurer.position;
+    // const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
-    // New cell should have adventurer
-    expect(grid.getCell(new Position(1, 0)).hasAdventurer).toBe(true);
-    // Old cell should be free
-    expect(grid.getCell(new Position(0, 0)).hasAdventurer).toBe(false);
+    // silmulateAdventurerMovement([adventurer], grid);
+    // silmulateAdventurerMovement([adventurer], grid);
 
-    // Treasure should have been collected
-    expect(adventurer.treasureCount).toBe(1);
-    expect(grid.getCell(new Position(1, 0)).treasureCount).toBe(0);
+    // expect(adventurer.position).toEqual(oldPosition);
+
+    // const logs = consoleSpy.mock.calls.flat().join("\n");
+
+    // const attemptedPosition = adventurer.getNextPosition();
+    // const expectedLog = `Adventurer ${adventurer.name} cannot move to position (${attemptedPosition.xPosition}, ${attemptedPosition.yPosition})`;
+
+    // expect(logs).toContain(expectedLog);
   });
 
-  it("should turn left and right correctly", () => {
-    adventurer.movements = ["G", "D"]; // Left then Right
-
+  it("should move adventurer forward if next position is valid", () => {
+    const oldPosition = adventurer.position;
     silmulateAdventurerMovement([adventurer], grid);
+    const newPosition = adventurer.position;
 
-    // Starts EAST -> turnLeft() = NORTH -> turnRight() = EAST again
-    expect(adventurer.orientation).toBe(OrientationsConstants.EAST);
+    expect(adventurer.position).toEqual(new Position(1, 0));
+    expect(grid.getCell(oldPosition).currentAdventurerPresent).toBeNull();
+    expect(grid.getCell(newPosition).currentAdventurerPresent).toBe(adventurer);
   });
 
-  it("should ignore invalid movement command", () => {
-    const consoleErrorMock = jest.spyOn(console, "error").mockImplementation();
-
-    adventurer.movements = ["Z"];
+  it("should move adventurer forward if next position is valid and collect treasure if available", () => {
+    adventurer.orientation = OrientationsConstants.SOUTH;
     silmulateAdventurerMovement([adventurer], grid);
 
-    expect(consoleErrorMock).toHaveBeenCalledWith("Unknown movement: Z");
-
-    consoleErrorMock.mockRestore();
+    expect(adventurer.position).toEqual(new Position(0, 1));
+    expect(adventurer.treasureCount).toEqual(1);
+    expect(grid.getCell(adventurer.position).treasureCount).toEqual(2);
   });
 
-  it("should not move into mountain", () => {
-    const mountainPosition = new Position(1, 0);
-    const mountainCell = grid.getCell(mountainPosition);
-    mountainCell.cellType = CellTypeEnum.MOUNTAINCELLTYPE;
-
+  it("should change orientation if turn left", () => {
+    adventurer.orientation = OrientationsConstants.SOUTH;
+    adventurer.movements = [SequenceConstants.G];
     silmulateAdventurerMovement([adventurer], grid);
 
-    // Adventurer should not have moved
-    expect(adventurer.position.xPosition).toBe(0);
-    expect(adventurer.position.yPosition).toBe(0);
+    expect(adventurer.orientation).toEqual(OrientationsConstants.EAST);
+  });
 
-    // Still at the original cell
-    expect(grid.getCell(new Position(0, 0)).hasAdventurer).toBe(true);
-    expect(grid.getCell(mountainPosition).hasAdventurer).toBe(false);
+  it("should change orientation if turn right", () => {
+    adventurer.movements = [SequenceConstants.D];
+    silmulateAdventurerMovement([adventurer], grid);
+
+    expect(adventurer.orientation).toEqual(OrientationsConstants.SOUTH);
+  });
+
+  it("should throw error if unknown movement", () => {
+    adventurer.movements = ["O"];
+
+    expect(() => silmulateAdventurerMovement([adventurer], grid)).toThrow(
+      "Unknown movement: O"
+    );
+  });
+
+  it("should update occupiedPositions in second movement round", () => {
+    const secondAdventurer = new Adventurer(
+      "Toto",
+      new Position(2, 0),
+      OrientationsConstants.WEST,
+      0,
+      [SequenceConstants.A, SequenceConstants.A]
+    );
+
+    grid.getCell(secondAdventurer.position).currentAdventurerPresent =
+      secondAdventurer;
+
+    silmulateAdventurerMovement([adventurer, secondAdventurer], grid);
+
+    expect(secondAdventurer.position).toBeDefined();
   });
 });

@@ -54,19 +54,21 @@ export function initializeMap(
         break;
 
       case "A":
-        totalAdventurers.push(
-          new Adventurer(
-            character[1],
-            new Position(parseInt(character[2]), parseInt(character[3])),
-            character[4],
-            0,
-            character[5].split("")
-          )
+        const adventurer = new Adventurer(
+          character[1],
+          new Position(parseInt(character[2]), parseInt(character[3])),
+          character[4],
+          0,
+          character[5].split("")
         );
+        totalAdventurers.push(adventurer);
+
+        gameMap.getCell(adventurer.position).currentAdventurerPresent =
+          adventurer;
         break;
 
       default:
-        console.error(`Unknown character type: ${firstChar}`);
+        throw Error(`Unknown character type: ${firstChar}`);
     }
   });
 }

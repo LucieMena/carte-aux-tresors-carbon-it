@@ -14,7 +14,7 @@ describe("Adventurer", () => {
       "Lucie",
       new Position(2, 3),
       OrientationsConstants.NORTH,
-      0,
+      undefined as any,
       [SequenceConstants.A, SequenceConstants.G]
     );
 
@@ -22,7 +22,6 @@ describe("Adventurer", () => {
   });
 
   describe("turnLeft", () => {
-
     it("should return West when current orientation is North", () => {
       adventurer.turnLeft();
 
@@ -129,43 +128,6 @@ describe("Adventurer", () => {
     });
   });
 
-  describe("moveForward", () => {
-    it("should return yPosition = 2 if current orientation is North", () => {
-      adventurer.moveForward();
-
-      expect(adventurer.position).toEqual(new Position(2, 2));
-    });
-
-    it("should return xPosition = 1 if current orientation is West", () => {
-      adventurer.orientation = OrientationsConstants.WEST;
-      adventurer.moveForward();
-
-      expect(adventurer.position).toEqual(new Position(1, 3));
-    });
-
-    it("should return yPosition = 4 if current orientation is SOUTH", () => {
-      adventurer.orientation = OrientationsConstants.SOUTH;
-      adventurer.moveForward();
-
-      expect(adventurer.position).toEqual(new Position(2, 4));
-    });
-
-    it("should return xPosition = 3 if current orientation is EAST", () => {
-      adventurer.orientation = OrientationsConstants.EAST;
-      adventurer.moveForward();
-
-      expect(adventurer.position).toEqual(new Position(3, 3));
-    });
-
-    it("should return error message if invalid orientation", () => {
-      adventurer.orientation = "OOPS";
-
-      expect(() => adventurer.moveForward()).toThrow(
-        "Invalid orientation: OOPS"
-      );
-    });
-  });
-
   describe("canMoveToNextCell", () => {
     it("should return false if next cell is outside of grid", () => {
       adventurer.position = new Position(2, 0);
@@ -182,14 +144,23 @@ describe("Adventurer", () => {
 
     it("should return false if next cell has another player in it", () => {
       const nextPosition = adventurer.getNextPosition();
-      grid.getCell(nextPosition).hasAdventurer = true;
+
+      const anotherPlayer: Adventurer = new Adventurer(
+        "Toto",
+        nextPosition,
+        OrientationsConstants.EAST,
+        0,
+        [SequenceConstants.A,SequenceConstants.G]
+      );
+
+      grid.getCell(nextPosition).currentAdventurerPresent = anotherPlayer;
 
       expect(adventurer.canMoveToNextCell(grid)).toBeFalsy();
     });
 
     it("should return true if next cell is inside of grid and has no mountains or player in it", () => {
       const nextPosition = adventurer.getNextPosition();
-      grid.getCell(nextPosition).hasAdventurer = false;
+      grid.getCell(nextPosition).currentAdventurerPresent = null;
       grid.setCellType(nextPosition, CellTypeEnum.EMPTYCELLTYPE);
 
       expect(adventurer.canMoveToNextCell(grid)).toBeTruthy();

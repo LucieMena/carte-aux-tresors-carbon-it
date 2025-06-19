@@ -88,26 +88,7 @@ export class Adventurer {
     return nextPosition;
   }
 
-  moveForward(): void {
-    switch (this.orientation) {
-      case OrientationsConstants.NORTH:
-        this.position.yPosition -= 1;
-        break;
-      case OrientationsConstants.WEST:
-        this.position.xPosition -= 1;
-        break;
-      case OrientationsConstants.SOUTH:
-        this.position.yPosition += 1;
-        break;
-      case OrientationsConstants.EAST:
-        this.position.xPosition += 1;
-        break;
-      default:
-        throw new Error(`Invalid orientation: ${this.orientation}`);
-    }
-  }
-
-  canMoveToNextCell(grid: Grid): boolean {
+  canMoveToNextCell(grid: Grid, occupiedPositions?: Set<string>): boolean {
     const nextPosition = this.getNextPosition();
 
     if (!isValidPosition(nextPosition, grid.width, grid.height)) {
@@ -116,7 +97,9 @@ export class Adventurer {
       );
       return false;
     }
+
     const nextCell = grid.getCell(nextPosition);
+
     if (nextCell.cellType === CellTypeEnum.MOUNTAINCELLTYPE) {
       console.log(
         `Adventurer ${this.name} cannot move to position (${nextPosition.xPosition}, ${nextPosition.yPosition}) because it is blocked by a mountain.`
@@ -124,7 +107,8 @@ export class Adventurer {
       return false;
     }
 
-    if (nextCell.hasAdventurer) {
+    const key = `${nextPosition.xPosition},${nextPosition.yPosition}`;
+    if (occupiedPositions?.has(key) || nextCell.currentAdventurerPresent) {
       console.log(
         `Adventurer ${this.name} cannot move to position (${nextPosition.xPosition}, ${nextPosition.yPosition}) because it is blocked by another adventurer.`
       );

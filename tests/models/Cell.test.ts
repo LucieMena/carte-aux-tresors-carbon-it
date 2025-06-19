@@ -6,7 +6,7 @@ describe("Cell", () => {
   let treasureAmount: number;
 
   beforeEach(() => {
-    cell = new Cell(1, false, CellTypeEnum.EMPTYCELLTYPE);
+    cell = new Cell(1, CellTypeEnum.EMPTYCELLTYPE, null);
     treasureAmount = 2;
   });
 

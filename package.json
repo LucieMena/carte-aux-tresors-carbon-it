@@ -5,7 +5,7 @@
   "scripts": {
     "test": "npx jest --config ./jest.config.js",
     "test:coverage": "npx jest --coverage --config ./jest.config.js",
-    "output": "npx ts-node app.ts"
+    "dev": "npx ts-node app.ts"
   },
   "keywords": [],
   "author": "",

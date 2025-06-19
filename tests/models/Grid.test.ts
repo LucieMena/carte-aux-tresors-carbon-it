@@ -1,6 +1,8 @@
 import { CellTypeEnum } from "../../src/constants/CellType.enum";
 import { MapConfigConstants } from "../../src/constants/MapConfig.constants";
-import { Cell } from "../../src/models/Cell";
+import { OrientationsConstants } from "../../src/constants/Orientation.constants";
+import { SequenceConstants } from "../../src/constants/Sequence.constants";
+import { Adventurer } from "../../src/models/Adventurer";
 import { Grid } from "../../src/models/Grid";
 import { Position } from "../../src/models/Position";
 
@@ -56,7 +58,15 @@ describe("Grid", () => {
 
       grid.addTreasureToCell(new Position(2, 3), 2);
 
-      grid.getCell(new Position(0, 3)).hasAdventurer = true;
+      const adventurer: Adventurer = new Adventurer(
+        "Lara",
+        new Position(0, 3),
+        OrientationsConstants.EAST,
+        0,
+        [SequenceConstants.A]
+      );
+
+      grid.getCell(new Position(0, 3)).currentAdventurerPresent = adventurer;
 
       const consoleSpy = jest
         .spyOn(console, "log")
@@ -80,7 +90,7 @@ describe("Grid", () => {
         `${MapConfigConstants.MOUNTAIN}${MapConfigConstants.SPACE}`;
 
       const expectedRow3 =
-        `${MapConfigConstants.ADVENTURER}${MapConfigConstants.SPACE}` +
+        `${MapConfigConstants.ADVENTURER}(Lara)${MapConfigConstants.SPACE}` +
         `${MapConfigConstants.EMPTYCELL}${MapConfigConstants.SPACE}` +
         `${MapConfigConstants.TREASURE}(2)${MapConfigConstants.SPACE}`;
 

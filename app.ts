@@ -34,7 +34,5 @@ fs.readFile(
     silmulateAdventurerMovement(totalAdventurers, gameMap);
 
     formatRecapOutput(lines, gameMap, totalAdventurers);
-
-    // gameMap.printGrid();
   }
 );

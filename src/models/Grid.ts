@@ -16,7 +16,7 @@ export class Grid {
     this.cells = this.cells = Array.from({ length: height }, (_, y) =>
       Array.from(
         { length: width },
-        (_, x) => new Cell(0, false, CellTypeEnum.EMPTYCELLTYPE)
+        (_, x) => new Cell(0, CellTypeEnum.EMPTYCELLTYPE, null)
       )
     );
   }
@@ -42,12 +42,12 @@ export class Grid {
       for (let x = 0; x < this.width; x++) {
         const cell = this.cells[y][x];
 
-        if (cell.cellType === CellTypeEnum.MOUNTAINCELLTYPE) {
+        if (cell.currentAdventurerPresent) {
+          row += `${MapConfigConstants.ADVENTURER}(${cell.currentAdventurerPresent.name})${MapConfigConstants.SPACE}`;
+        } else if (cell.cellType === CellTypeEnum.MOUNTAINCELLTYPE) {
           row += `${MapConfigConstants.MOUNTAIN}${MapConfigConstants.SPACE}`;
         } else if (cell.treasureCount > 0) {
-          row += `${MapConfigConstants.TREASURE}(${cell.treasureCount}) `;
-        } else if (cell.hasAdventurer) {
-          row += `${MapConfigConstants.ADVENTURER}${MapConfigConstants.SPACE}`;
+          row += `${MapConfigConstants.TREASURE}(${cell.treasureCount})${MapConfigConstants.SPACE}`;
         } else {
           row += `${MapConfigConstants.EMPTYCELL}${MapConfigConstants.SPACE}`;
         }

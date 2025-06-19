@@ -1,14 +1,15 @@
 import { CellTypeEnum } from "../constants/CellType.enum";
+import { Adventurer } from "./Adventurer";
 
 export class Cell {
   treasureCount: number;
-  hasAdventurer: boolean;
   cellType: CellTypeEnum;
+  currentAdventurerPresent : Adventurer | null;
 
-  constructor(treasureCount: number, hasAdventurer: boolean, cellType: CellTypeEnum) {
+  constructor(treasureCount: number, cellType: CellTypeEnum, adventurer: Adventurer | null) {
     this.treasureCount = treasureCount;
-    this.hasAdventurer = hasAdventurer;
     this.cellType = cellType;
+    this.currentAdventurerPresent = adventurer;
   }
 
   addTreasure(treasureCount: number): void {
