@@ -40,20 +40,6 @@ describe("silmulateAdventurerMovement", () => {
     silmulateAdventurerMovement([adventurer], grid);
 
     expect(adventurer.position).toEqual(oldPosition);
-    // const oldPosition = adventurer.position;
-    // const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-
-    // silmulateAdventurerMovement([adventurer], grid);
-    // silmulateAdventurerMovement([adventurer], grid);
-
-    // expect(adventurer.position).toEqual(oldPosition);
-
-    // const logs = consoleSpy.mock.calls.flat().join("\n");
-
-    // const attemptedPosition = adventurer.getNextPosition();
-    // const expectedLog = `Adventurer ${adventurer.name} cannot move to position (${attemptedPosition.xPosition}, ${attemptedPosition.yPosition})`;
-
-    // expect(logs).toContain(expectedLog);
   });
 
   it("should move adventurer forward if next position is valid", () => {
