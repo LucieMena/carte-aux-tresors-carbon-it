@@ -1,4 +1,4 @@
-# 🗺️ Exercice Pratique - Carte aux Trésors
+# 🗺️ Treasure hunt simulation
 
 This is a treasure hunt simulation game, where adventurers explore a grid map to collect treasures while avoiding obstacles.
 
